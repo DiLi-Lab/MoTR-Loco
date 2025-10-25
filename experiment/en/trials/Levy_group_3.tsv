@@ -1,0 +1,25 @@
+idx	experiment	experiment_id	group	condition	condition_id	item_id	text	question_type	question	response_true	response_distractors
+3	rep_levy2009	1	3	toward_ambig	3	1	The students sighed toward the professor taught a dancing lesson by the experimented instructor.	S Vm	Did the students sigh?	Yes	No
+6	rep_levy2009	1	3	at_unambig	2	2	The kindergartner grinned at the little girl chosen a toy by her parents on the first day of Chanukah.	S Vm	Did the kindergartner grin?	Yes	No
+9	rep_levy2009	1	3	at_ambig	1	3	The hostess shrugged at the customer allowed the pleasure of eating sweets by his doctor.	Vm O	Did someone shrug at the customer?	Yes	No
+16	rep_levy2009	1	3	toward_unambig	4	4	The nurse grimaced toward a student stolen a muffin by her friends from the dining hall.	S was Vred	Did the nurse receive a muffin?	No	Yes
+19	rep_levy2009	1	3	toward_ambig	3	5	The hotel owner scowled toward the guest brought a drink by the bellboy.	O Vm	Did the guest scowl?	No	Yes
+22	rep_levy2009	1	3	at_unambig	2	6	The benchwarmers cheered at the player thrown a frisbee by the opposing team.	O Vred	Did the player throw a frisbee?	No	Yes
+25	rep_levy2009	1	3	at_ambig	1	7	The priest frowned at the woman offered a beer by the hostess.	O Vred	Did the woman offer someone a beer?	No	Yes
+32	rep_levy2009	1	3	toward_unambig	4	8	The foreman cried out toward a carpenter sawn a board by his buddy.	O Vm	Did the carpenter cry out?	No	Yes
+35	rep_levy2009	1	3	toward_ambig	3	9	The manager cursed toward the waiter served pea soup by a trainee.	So Vred O	Did someone serve the waiter pea soup?	Yes	No
+38	rep_levy2009	1	3	at_unambig	2	10	The receptionist winked at the young man shown an apartment by his uncle.	So Vred O	Did someone show the young man an apartment?	Yes	No
+41	rep_levy2009	1	3	at_ambig	1	11	The anthropologist looked on at the woman knitted a shawl by her mother.	O Vred PP	Did the woman knit her mother a shawl?	No	Yes
+48	rep_levy2009	1	3	toward_unambig	4	12	James stared toward the children hidden Easter eggs by their teachers.	PP Vred O	Did the teachers hide Easter eggs for the children?	Yes	No
+51	rep_levy2009	1	3	toward_ambig	3	13	The soldiers fired toward the sergeant presented a list of charges by the judge the previous day. 	O Vred PP	Did the sergeant present the judge a list of charges?	No	Yes
+54	rep_levy2009	1	3	at_unambig	2	14	The town drunk snorted at the innkeeper sung a verse by a traveling monk.	PP Vred O	Did the traveling monk sing the innkeeper a verse?	Yes	No
+57	rep_levy2009	1	3	at_ambig	1	15	The taxi driver signaled at the woman tossed a silver dollar by the passerby.	O Vred PP	Did the woman toss the passerby a silver dollar?	No	Yes
+64	rep_levy2009	1	3	toward_unambig	4	16	The mime gestured toward the artist drawn a picture by her father while he was on his deathbed.	S was Vred	Was the mime drawn a picture?	No	Yes
+67	rep_levy2009	1	3	toward_ambig	3	17	The trader sneered toward the banker clipped a coupon by her boss.	So Vred O	Did someone clip the banker a coupon?	Yes	No
+70	rep_levy2009	1	3	at_unambig	2	18	The logger glared at the activist grown a tree by his daughter.	O Vred	Did the activist grow a tree?	No	Yes
+73	rep_levy2009	1	3	at_ambig	1	19	The little boy reached out at the girl knitted a hat by her grandmother.	Vm O	Did someone reach out at the girl?	Yes	No
+80	rep_levy2009	1	3	toward_unambig	4	20	The lobbyist smiled toward the congressman written a letter by the CEO.	PP Vred O	Did the CEO write the congressman a letter?	Yes	No
+83	rep_levy2009	1	3	toward_ambig	3	21	The referee motioned toward the athlete hurled a pass by the quarterback during the third quarter.	O Vred	Did the athlete hurl a pass?	No	Yes
+86	rep_levy2009	1	3	at_unambig	2	22	The people in line rubbernecked at the man withdrawn some money by his wife from the uncooperative ATM.	So Vred O	Did someone withdraw money for the man?	Yes	No
+89	rep_levy2009	1	3	at_ambig	1	23	The landlord squinted at the tenant carried a load of books by her boyfriend from her office.	O Vred PP	Did the tenant carry her boyfriend a load of books from her office?	No	Yes
+96	rep_levy2009	1	3	toward_unambig	4	24	The actor coughed toward the journalist chosen a question by the editor for the interview.	PP Vred O	Did the editor choose the journalist a question?	Yes	No
