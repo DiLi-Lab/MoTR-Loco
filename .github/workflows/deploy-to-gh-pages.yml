@@ -13,6 +13,7 @@ jobs:
       matrix:
         folder:
           - experiment/en/
+          - experiment/demo/
 
     runs-on: ubuntu-latest
     steps:

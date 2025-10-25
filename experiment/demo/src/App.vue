@@ -10,7 +10,7 @@
         }
       }">
         <!-- <WelcomeScreen /> -->
-        <div style="width: 80%; margin: auto;">
+        <div style="width: 90%; margin: auto;">
 
         <div style="background-color: lightgrey; padding: 10px;">
           <b>Information About this study </b>
@@ -66,12 +66,10 @@
         </div>
      </Screen>
 
-     <InstructionScreen :title="'Instructions'" :button-text="'Continue'" >
-      <div style="width: 80%; margin: auto;">
-        <p></p>
-        <p>In this study, you will read short texts and answer questions about them. However, unlike in normal reading, the texts will be blurred. In order to bring the text into focus move your mouse over it. Take as much time to read the text as you need in order to understand it. When you are done reading, answer the question at the bottom and click “next” to move on.</p>
-        <p>Let’s get started!</p>
-      </div>
+     <InstructionScreen :title="'Instructions'" :button-text="'Continue'">
+      <p></p>
+      <p>In this study, you will read short texts and answer questions about them. However, unlike in normal reading, the texts will be blurred. In order to bring the text into focus move your mouse over it. Take as much time to read the text as you need in order to understand it. When you are done reading, answer the question at the bottom and click “next” to move on.</p>
+      <p>Let’s get started!</p>
     </InstructionScreen>
 
     <template v-for="(trial, i) of trials">
@@ -149,11 +147,7 @@
 </template>
 
 <script>
-import g1 from '../trials/Levy_group_1.tsv';
-import g2 from '../trials/Levy_group_2.tsv';
-import g3 from '../trials/Levy_group_3.tsv';
-import g4 from '../trials/Levy_group_4.tsv';
-import fillers from '../trials/Levy_fillers.tsv';
+import test from '../trials/test.tsv';
 import practice from '../trials/Levy_practice.tsv';
 import _ from 'lodash';
 
@@ -190,12 +184,7 @@ function interleaveWithFillers(items, fillers) {
 export default {
   name: 'App',
   data() {
-    const lists = [g1, g2, g3, g4];
-    const chosenItems = lists[Math.floor(Math.random() * lists.length)];
-    const shuffledItems = _.shuffle(chosenItems);
-    const shuffledFillers = _.shuffle(fillers);
-    const shuffledAll = interleaveWithFillers(shuffledItems, shuffledFillers);
-    const trials = _.concat(practice, shuffledAll);
+    const trials = _.concat(practice, test);
 
     const updatedTrials = trials.map(trial => ({
       ...trial,
@@ -372,7 +361,7 @@ export default {
     cursor: pointer;
     padding-top: 2%;
     padding-bottom: 2%;
-    padding-left: 12%;
+    padding-left: 2%;
     padding-right: 2%;
   }
   button {
@@ -428,7 +417,7 @@ export default {
     font-weight: 450;
     padding-top: 2%;
     padding-bottom: 2%;
-    padding-left: 12%;
+    padding-left: 2%;
     padding-right: 2%;
   }
   * {

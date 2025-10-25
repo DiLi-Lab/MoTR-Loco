@@ -1,0 +1,9 @@
+idx	experiment	experiment_id	group	condition	condition_id	item_id	text	question_type	question	response_true	response_distractors
+37	rep_levy2009	1	9	practice	9	61	The judge heard the bailiff chuckle under his breath.	p	Did the judge hear anything?	Yes	No
+38	rep_levy2009	1	9	practice	9	62	The night watchman detected an intruder tugging at the glass door on the balcony.	p	Was the intruder spotted in the basement?	No	Yes
+39	rep_levy2009	1	9	practice	9	63	A gardener who dabbled in hybridizing tomato strains planted some imported seeds in his newest plot.	p	Did the gardener have a new plot of land?	Yes	No
+40	rep_levy2009	1	9	practice	9	64	Lauren worked with an editor who strongly disagreed with her usage of semicolons.	p	Did the editor and Lauren always agree?	No	Yes
+41	rep_levy2009	1	9	practice	9	65	She inspected the grassy knoll for remnants of bullets from a high-powered rifle.	p	Was the knoll covered with vegetation?	Yes	No
+42	rep_levy2009	1	9	practice	9	66	The old shawl had been passed down to her from her great-grandmother from Ukraine.	p	Did she have a pair of gloves from her grandmother?	No	Yes
+43	rep_levy2009	1	9	practice	9	67	The woman was severely overweight and had a history of medical problems because of it.	p	Was the woman generally healthy?	No	Yes
+44	rep_levy2009	1	9	practice	9	68	A cab driver arrived at the scene and picked up all four of the waiting businessmen.	p	Were businessmen waiting?	Yes	No
