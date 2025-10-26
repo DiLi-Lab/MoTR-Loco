@@ -47,7 +47,7 @@
         <br>
 
         <tr>
-          <td>Please enter your Prolific ID to continue:&nbsp</td><td><input name="ProlID" type="text" class="obligatory" v-model="$magpie.measurements.SubjectID"/></td>
+          <td>Please enter your Prolific ID or any string to continue:&nbsp</td><td><input name="ProlID" type="text" class="obligatory" v-model="$magpie.measurements.SubjectID"/></td>
         </tr>
         <tr></tr>
 
