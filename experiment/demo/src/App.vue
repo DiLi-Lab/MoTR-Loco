@@ -83,36 +83,38 @@
           </form>
           <div class="oval-cursor"></div>
           <template>
-            <div v-if="showFirstDiv" class="readingText" style= "top:2%;" @mousemove="moveCursor" @mouseleave="changeBack">
+            <div v-if="showFirstDiv" class="readingText" style= "top:5%;" @mousemove="moveCursor" @mouseleave="changeBack">
               <template v-for="(word, index) of trial.text.split(' ')">
                 <span :key="index" :data-index="index" >
                   {{ word }}
                 </span>
               </template>
             </div>
-            <div class="blurry-layer" style="opacity: 0.3; filter: blur(3.5px); transition: all 0.3s linear 0s; top:2%;"> 
+            <div class="blurry-layer" style="opacity: 0.3; filter: blur(3.5px); transition: all 0.3s linear 0s; top:5%;"> 
               {{trial.text}}
             </div>
           </template>
 
-          <button v-if="showFirstDiv" style= "bottom:60%; transform: translate(-50%, -50%)" @click="toggleDivs" :disabled="!isCursorMoving">
+          <button v-if="showFirstDiv" style= "bottom:65%; transform: translate(-50%, -50%)" @click="toggleDivs" :disabled="!isCursorMoving">
             Done
           </button>
 
-          <div v-else style = "position:absolute; bottom:35%; text-align: center; width: 100%; min-width: -webkit-fill-available;" >
+          <div v-else style = "position:absolute; bottom:45%; text-align: center; width: 100%; min-width: -webkit-fill-available;" >
             <template>
               <form>
                 <!-- comprehension questions and the response options -->
                 <div>{{ trial.question.replace(/ ?["]+/g, '') }}</div>
                 <template v-for='(word, index) of trial.response_options'>
-                  <input :id="'opt_'+index" type="radio" :value="word" name="opt" v-model="$magpie.measurements.response"/>{{ word }}<br/>
-                    <!-- <label :for="'opt_'+index"> {{ word }}&nbsp</label> -->
+                  <label style="cursor:pointer; user-select:none; border:1px solid #ccc; border-radius:8px; padding:14px 22px; display:inline-flex; align-items:center;">
+                    <input type="radio" :value="word" name="opt" v-model="$magpie.measurements.response" style="display:none;">
+                    <span style="display:block;">{{ word }}</span>
+                  </label>
                 </template>
               </form>
             </template>
           </div>
 
-          <button v-if="$magpie.measurements.response" style="transform: translate(-50%, -50%); bottom:15%;" @click="toggleDivs(); $magpie.saveAndNextScreen()">
+          <button v-if="$magpie.measurements.response" style="transform: translate(-50%, -50%); bottom:25%;" @click="toggleDivs(); $magpie.saveAndNextScreen()">
             Next
           </button>
 
@@ -185,14 +187,13 @@ export default {
   name: 'App',
   data() {
     const trials = _.concat(practice, test);
+    const order = ["Yes", "No"];
 
     const updatedTrials = trials.map(trial => ({
       ...trial,
-      response_options: _.shuffle(
-        `${trial.response_true}|${trial.response_distractors}`
-          .replace(/ ?["]+/g, '')
-          .split('|')
-      ),
+      response_options: [trial.response_true, trial.response_distractors]
+        .map(s => s.replace(/ ?["]+/g, ''))
+        .sort((a, b) => order.indexOf(a) - order.indexOf(b))
     }));
 
     return {
@@ -252,9 +253,9 @@ export default {
             Word: currentElement.textContent,
             mousePositionX: this.mousePosition.x | 0,
             mousePositionY: this.mousePosition.y | 0,
-            wordPositionTop: r.top | 0,
+            // wordPositionTop: r.top | 0,
             wordPositionLeft: r.left | 0,
-            wordPositionBottom: r.bottom | 0,
+            // wordPositionBottom: r.bottom | 0,
             wordPositionRight: r.right | 0
           });
           this._outsideOnceLogged = false;
@@ -425,5 +426,25 @@ export default {
     -webkit-user-select: none; /* Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
+    font-family: "Courier", monospace;
     }
+label {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 14px 22px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+/* make the selected text bold + red */
+label input[type="radio"]:checked + span {
+  font-weight: 600;
+  color: #e30303;
+}
+/* highlight the entire selected box */
+label:has(input[type="radio"]:checked) {
+  box-shadow: 0 0 0 3px #e30303 inset;
+  border-color: #e30303;
+}
 </style>
