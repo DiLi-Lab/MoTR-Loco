@@ -97,7 +97,7 @@
             </div>
           </template>
 
-          <button v-if="showFirstDiv" style= "bottom:65%; transform: translate(-50%, -50%)" @click="toggleDivs" :disabled="!isCursorMoving">
+          <button v-if="showFirstDiv" style= "bottom:60%; transform: translate(-50%, -50%)" @click="toggleDivs" :disabled="!isCursorMoving">
             Done
           </button>
 
@@ -107,7 +107,7 @@
                 <!-- comprehension questions and the response options -->
                 <div>{{ trial.question.replace(/ ?["]+/g, '') }}</div>
                 <template v-for='(word, index) of trial.response_options'>
-                  <label style="cursor:pointer; user-select:none; border:1px solid #ccc; border-radius:8px; padding:14px 22px; display:inline-flex; align-items:center;">
+                  <label style="cursor:pointer; user-select:none; border:1px solid #ccc; border-radius:8px; padding:14px 22px; display:inline-flex; align-items:center;margin-right:12px;">
                     <input type="radio" :value="word" name="opt" v-model="$magpie.measurements.response" style="display:none;">
                     <span style="display:block;">{{ word }}</span>
                   </label>
@@ -142,9 +142,17 @@
       <button style= "bottom: 5%; transform: translate(-50%, -50%)" @click="$magpie.saveAndNextScreen();">Next</button>
     </Screen>
 
-    <TextareaScreen
-        question="What unusual happened during the experiment?"
-    />
+    <Screen>
+
+      <Slide>
+        <p>"What unusual happened during the experiment?"</p>
+        <TextareaInput
+            :response.sync= "$magpie.measurements.issue"
+          />
+        <button @click="$magpie.saveAndNextScreen();">Submit</button>
+      </Slide>
+
+    </Screen>
 
     <SubmitResultsScreen />
   </Experiment>
@@ -437,7 +445,7 @@ export default {
     -webkit-user-select: none; /* Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
-    font-family: "Courier", monospace;
+    font-family: "Courier New", monospace;
     }
 label {
   border: 1px solid #ccc;

@@ -67,9 +67,11 @@
      </Screen>
 
      <InstructionScreen :title="'Instructions'" :button-text="'Continue'">
-      <p></p>
-      <p>In this study, you will read short texts and answer questions about them. However, unlike in normal reading, the texts will be blurred. In order to bring the text into focus move your mouse over it. Take as much time to read the text as you need in order to understand it. When you are done reading, answer the question at the bottom and click “next” to move on.</p>
-      <p>Let’s get started!</p>
+      <div style="width: 80%; margin: auto;">
+        <p></p>
+        <p>In this study, you will read short texts and answer questions about them. However, unlike in normal reading, the texts will be blurred. In order to bring the text into focus move your mouse over it. Take as much time to read the text as you need in order to understand it. When you are done reading, answer the question at the bottom and click “next” to move on.</p>
+        <p>Let’s get started!</p>
+      </div>
     </InstructionScreen>
 
     <template v-for="(trial, i) of trials">
@@ -95,7 +97,7 @@
             </div>
           </template>
 
-          <button v-if="showFirstDiv" style= "bottom:65%; transform: translate(-50%, -50%)" @click="toggleDivs" :disabled="!isCursorMoving">
+          <button v-if="showFirstDiv" style= "bottom:60%; transform: translate(-50%, -50%)" @click="toggleDivs" :disabled="!isCursorMoving">
             Done
           </button>
 
@@ -105,7 +107,7 @@
                 <!-- comprehension questions and the response options -->
                 <div>{{ trial.question.replace(/ ?["]+/g, '') }}</div>
                 <template v-for='(word, index) of trial.response_options'>
-                  <label style="cursor:pointer; user-select:none; border:1px solid #ccc; border-radius:8px; padding:14px 22px; display:inline-flex; align-items:center;">
+                  <label style="cursor:pointer; user-select:none; border:1px solid #ccc; border-radius:8px; padding:14px 22px; display:inline-flex; align-items:center;margin-right:12px;">
                     <input type="radio" :value="word" name="opt" v-model="$magpie.measurements.response" style="display:none;">
                     <span style="display:block;">{{ word }}</span>
                   </label>
@@ -140,9 +142,17 @@
       <button style= "bottom: 5%; transform: translate(-50%, -50%)" @click="$magpie.saveAndNextScreen();">Next</button>
     </Screen>
 
-    <TextareaScreen
-        question="What unusual happened during the experiment?"
-    />
+    <Screen>
+
+      <Slide>
+        <p>"What unusual happened during the experiment?"</p>
+        <TextareaInput
+            :response.sync= "$magpie.measurements.issue"
+          />
+        <button @click="$magpie.saveAndNextScreen();">Submit</button>
+      </Slide>
+
+    </Screen>
 
     <SubmitResultsScreen />
   </Experiment>
@@ -186,7 +196,7 @@ function interleaveWithFillers(items, fillers) {
 export default {
   name: 'App',
   data() {
-    const trials = _.concat(practice, test);
+    const trials = _.concat(practice[1], test);
     const order = ["Yes", "No"];
 
     const updatedTrials = trials.map(trial => ({
@@ -362,8 +372,8 @@ export default {
     cursor: pointer;
     padding-top: 2%;
     padding-bottom: 2%;
-    padding-left: 2%;
-    padding-right: 2%;
+    padding-left: 0;
+    padding-right: 0;
   }
   button {
     position: absolute;
@@ -418,8 +428,8 @@ export default {
     font-weight: 450;
     padding-top: 2%;
     padding-bottom: 2%;
-    padding-left: 2%;
-    padding-right: 2%;
+    padding-left: 0;
+    padding-right: 0;
   }
   * {
     user-select: none; /* Standard syntax */
