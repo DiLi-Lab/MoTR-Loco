@@ -85,45 +85,46 @@
           </form>
           <div class="oval-cursor"></div>
           <template>
-            <div v-if="showFirstDiv" class="readingText" style= "top:5%;" @mousemove="moveCursor" @mouseleave="changeBack">
+            <div v-if="hasStarted" class="readingText" style= "top:5%;" @mousemove="moveCursor" @mouseleave="changeBack">
               <template v-for="(word, index) of trial.text.split(' ')">
                 <span :key="index" :data-index="index" >
                   {{ word }}
                 </span>
               </template>
             </div>
-            <div class="blurry-layer" style="opacity: 0.3; filter: blur(3.5px); transition: all 0.3s linear 0s; top:5%;"> 
+            <div v-if="hasStarted" class="blurry-layer" style="opacity: 0.3; filter: blur(3.5px); transition: all 0.3s linear 0s; top:5%;"> 
               {{trial.text}}
             </div>
           </template>
+          <!-- Start button -->
+          <button style="bottom:78%; left: -5%; transform: translate(-50%, -50%)" @click="startReading" v-if="!hasStarted">
+            Start
+          </button>
 
-          <button v-if="showFirstDiv" style= "bottom:60%; transform: translate(-50%, -50%)" @click="toggleDivs" :disabled="!isCursorMoving">
+          <button v-if="hasStarted" style= "bottom:65%; left: 95%; transform: translate(-50%, -50%)" @click="handleRCQButton" :disabled="!hasRevealed">
             Done
           </button>
+        </Slide>
 
-          <div v-else style = "position:absolute; bottom:45%; text-align: center; width: 100%; min-width: -webkit-fill-available;" >
-            <template>
-              <form>
-                <!-- comprehension questions and the response options -->
-                <div>{{ trial.question.replace(/ ?["]+/g, '') }}</div>
-                <template v-for='(word, index) of trial.response_options'>
-                  <label style="cursor:pointer; user-select:none; border:1px solid #ccc; border-radius:8px; padding:14px 22px; display:inline-flex; align-items:center;margin-right:12px;">
-                    <input type="radio" :value="word" name="opt" v-model="$magpie.measurements.response" style="display:none;">
-                    <span style="display:block;">{{ word }}</span>
-                  </label>
-                </template>
-              </form>
-            </template>
+        <Slide class="question_slide">
+          <div class="radio-options" style="padding-top: 4%;">
+            <form>
+              <!-- comprehension questions and the response options -->
+              <div>{{ trial.question }}</div>
+              <template v-for='(option, index) of trial.response_options'>
+                <label style="cursor:pointer; user-select:none; border:1px solid #ccc; border-radius:8px; padding:14px 22px; display:inline-flex; align-items:center;margin-right:12px;">
+                  <input type="radio" :value="option" name="opt" v-model="$magpie.measurements.response" style="display:none;">
+                  <span style="display:block;">{{ option }}</span>
+                </label>
+              </template>
+            </form>
           </div>
 
-          <button v-if="$magpie.measurements.response" style="transform: translate(-50%, -50%); bottom:25%;" @click="toggleDivs(); $magpie.saveAndNextScreen()">
+          <button v-if="$magpie.measurements.response" style="transform: translate(-50%, -50%); bottom:55%" @click="$magpie.saveAndNextScreen()">
             Next
           </button>
-
         </Slide>
       </Screen>
-
-
     </template>
 
     <Screen>
@@ -207,7 +208,8 @@ export default {
     }));
 
     return {
-      isCursorMoving: false,
+      hasStarted: false,
+      hasRevealed: false,
       trials: updatedTrials,
       currentIndex: null,              
       showFirstDiv: true,
@@ -235,7 +237,7 @@ export default {
     },
 
     saveData() {
-      if (!this.showFirstDiv) return;
+      if (!this.hasStarted) return; 
       const readingContainer = this.$el.querySelector('.readingText');
       if (!readingContainer) return;
 
@@ -295,7 +297,7 @@ export default {
     },
 
     moveCursor(e) {
-      this.isCursorMoving = true;
+      if (!this.hasStarted) return;
       const oc = this.$el.querySelector(".oval-cursor");
       if (oc && !oc.classList.contains('grow')) oc.classList.add('grow');
 
@@ -316,6 +318,7 @@ export default {
       }
 
       if (targetSpan) {
+        this.hasRevealed = true;
         this._outsideOnceLogged = false;
         this.currentIndex = targetSpan.getAttribute('data-index');
       } else {
@@ -326,12 +329,15 @@ export default {
       this.mousePosition.y = y;
     },
 
-    toggleDivs() {
-      this.showFirstDiv = !this.showFirstDiv;
-      this.isCursorMoving = false;
-      this._meta = null;                
-      this._outsideOnceLogged = false;   
-      if (!this.showFirstDiv) this.currentIndex = null;
+    handleRCQButton() {
+      if (!this.hasRevealed) return;
+      $magpie.nextSlide();
+      this.hasStarted = false;
+      this.hasRevealed = false;
+    },
+    startReading() {
+      this.hasStarted = true;
+      this.hasRevealed = false;
     },
 
     getScreenDimensions() {
@@ -450,11 +456,11 @@ label {
 /* make the selected text bold + red */
 label input[type="radio"]:checked + span {
   font-weight: 600;
-  color: #e30303;
+  color: #0b3c5d;
 }
 /* highlight the entire selected box */
 label:has(input[type="radio"]:checked) {
-  box-shadow: 0 0 0 3px #e30303 inset;
-  border-color: #e30303;
+  box-shadow: 0 0 0 3px #0b3c5d inset;
+  border-color: #0b3c5d;
 }
 </style>
