@@ -59,7 +59,7 @@
           <br> By clicking on the button below you consent to participating in this study: <br><br>
           <br />
           <button 
-            @click="$magpie.addExpData({ SubjectId: $magpie.measurements.SubjectID}); $magpie.nextScreen()">
+            @click="$magpie.addExpData({ SubjectId: $magpie.measurements.SubjectID, ...getScreenDimensions() });$magpie.nextScreen()">
             Proceed
           </button>
 
@@ -341,9 +341,25 @@ export default {
     },
 
     getScreenDimensions() {
+      // Physical pixels per CSS pixel (e.g. 2 on Retina); browser zoom also changes it
+      const dpr = window.devicePixelRatio;
       return {
+        // Full monitor size in CSS pixels
+        screen_width: window.screen.width,
+        screen_height: window.screen.height,
+        // Monitor size minus OS bars (taskbar, menu bar, dock), in CSS pixels
+        screen_avail_width: window.screen.availWidth,
+        screen_avail_height: window.screen.availHeight,
+        device_pixel_ratio: dpr,
+        // ESTIMATED hardware resolution (screen size x device_pixel_ratio) in physical pixels (inexact if zoomed or OS display scaling is used)
+        screen_native_width_estimated: Math.round(window.screen.width * dpr),
+        screen_native_height_estimated: Math.round(window.screen.height * dpr),
+        // Browser viewport (area the experiment renders into) in CSS pixels, at the time of recording
         window_inner_width: window.innerWidth,
-        window_inner_height: window.innerHeight
+        window_inner_height: window.innerHeight,
+        // ESTIMATED browser zoom (outer/inner window width, e.g. 1.25 = 125%). Only meaningful in
+        // Chromium browsers (Chrome, Edge); ~1 in Firefox regardless of zoom; skewed by open DevTools/side panels
+        browser_zoom_estimated: Math.round((window.outerWidth / window.innerWidth) * 100) / 100
       };
     }
   },
